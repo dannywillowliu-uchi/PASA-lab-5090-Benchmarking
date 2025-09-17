@@ -1,0 +1,91 @@
+# GPU Benchmarking Project .gitignore
+
+# Large model files and weights
+*.pth
+*.safetensors
+*.gguf
+*.bin
+*.h5
+*.onnx
+
+# Model directories (these are too large for git)
+models/
+wan2.2/
+/root/Wan2.2-T2V-A14B/
+/root/Wan2.2-Ti2V-5B/
+
+# Results and output directories
+results/
+/tmp/
+*.gif
+*.mp4
+*.png
+*.jpg
+*.jpeg
+
+# Docker image exports and backups
+docker/backups/
+*.tar.gz
+*.tar
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Hugging Face cache
+.cache/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Large benchmark output files
+*_results/
+*_benchmarks/
+*_test/
+
+# Keep structure but ignore large content
+!models/.gitkeep
+!results/.gitkeep
+!docker/backups/.gitkeep
