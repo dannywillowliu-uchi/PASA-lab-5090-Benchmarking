@@ -3,9 +3,7 @@
 **Model**: WAN2.2 Text-to-Video A14B (14 billion parameters)  
 **Hardware**: 8x NVIDIA RTX 5090 (32GB VRAM each)  
 **Date**: September 16, 2025  
-**Framework**: PyTorch with FSDP (Fully Sharded Data Parallel)
-
-## Executive Summary
+**Framework**: PyTorch with FSDP
 
 Comprehensive performance benchmarking of WAN2.2 14B model across different step counts and GPU configurations, measuring pure generation time, memory usage, and GPU scaling efficiency.
 
@@ -18,42 +16,6 @@ Comprehensive performance benchmarking of WAN2.2 14B model across different step
 | **10 steps, 8 GPUs** | 25.0s | 70.0s | 120.24s | ~4.0GB per GPU | **3.24x speedup** |
 | **20 steps, 8 GPUs** | 42.0s | 74.0s | 134.19s | ~4.2GB per GPU | **3.19x speedup** |
 
-## Detailed Performance Analysis
-
-### 1. GPU Scaling Performance
-
-**Exceptional distributed training results:**
-
-- **10 steps**: 8 GPUs achieved **3.24x speedup** over single GPU (81s → 25s)
-- **20 steps**: 8 GPUs achieved **3.19x speedup** over single GPU (134s → 42s)
-- **Memory efficiency**: 87% reduction in per-GPU memory usage (31GB → 4GB per GPU)
-
-### 2. Step Count Impact
-
-**Generation time scaling:**
-- **Single GPU**: 20 steps takes **1.65x longer** than 10 steps (134s vs 81s)
-- **8 GPUs**: 20 steps takes **1.68x longer** than 10 steps (42s vs 25s)
-- **Excellent step scaling efficiency** across all GPU configurations
-
-### 3. Memory Utilization
-
-#### Single GPU Configuration
-- **Peak Usage**: ~31GB (95% of 32.6GB available)
-- **Average Usage**: ~15GB (47% utilization during generation)
-- **Memory Efficiency**: Optimal VRAM utilization with headroom for stability
-
-#### 8 GPU Distributed Configuration  
-- **Per-GPU Peak**: ~4.0-4.2GB (12.3-12.9% utilization per GPU)
-- **Total Peak Memory**: ~32-34GB across all GPUs
-- **Distribution Efficiency**: Excellent memory sharding with FSDP
-
-### 4. Model Loading Performance
-
-**Loading times show expected overhead for distributed setup:**
-- **Single GPU**: 55-56s (consistent across step counts)
-- **8 GPUs**: 70-74s (+27-32% overhead for distributed initialization and NCCL setup)
-
-## Technical Configuration
 
 ### Single GPU Setup
 ```bash
