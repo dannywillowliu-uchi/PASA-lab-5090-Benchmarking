@@ -87,7 +87,7 @@ huggingface-cli download QuantStack/Wan2.2-T2V-A14B-GGUF --local-dir models/quan
 ./docker/rebuild_all.sh
 ```
 
-## 🐳 Docker Infrastructure
+## Docker Infrastructure
 
 ### Critical Images
 - `wan2.2-benchmark:latest` - Main benchmarking environment (11GB)
@@ -100,7 +100,7 @@ huggingface-cli download QuantStack/Wan2.2-T2V-A14B-GGUF --local-dir models/quan
 - `safe_cleanup.sh` - Safely clean Docker without destroying critical images
 - `label_critical_images.sh` - Tags important images for protection
 
-## 📊 Running Benchmarks
+## Running Benchmarks
 
 ### Single GPU Benchmarks
 ```bash
@@ -126,7 +126,7 @@ python3 wan2_2_benchmark_8gpu.py --model_path /root/Wan2.2-T2V-A14B --gpu_count 
 ./scripts/run_quantized_benchmark.sh
 ```
 
-## 📈 Benchmark Configurations
+## Benchmark Configurations
 
 The project includes GenEval-compatible benchmark configurations:
 
@@ -145,7 +145,7 @@ The project includes GenEval-compatible benchmark configurations:
 - **Q4_0**: 10, 20 inference steps
 - **Q2_K**: 10, 20 inference steps
 
-## 🛡️ Infrastructure Protection
+## Infrastructure Protection
 
 ### Before System Maintenance
 Always run the backup script:
@@ -165,21 +165,21 @@ If images are lost, use the quick rebuild:
 ./docker/quick_rebuild.sh
 ```
 
-## 📝 Configuration Files
+## Configuration Files
 
 Key configuration files:
 - `benchmarks/configs/` - Benchmark parameters
 - `docker/dockerfiles/` - Container definitions
 - `DOCKER_PROTECTION_PROTOCOL.md` - Infrastructure protection guidelines
 
-## 🔍 Monitoring
+## Monitoring
 
 GPU monitoring utilities in `shared/monitoring/`:
 - Real-time GPU utilization tracking
 - Memory usage monitoring
 - Temperature and power monitoring
 
-## 🚨 Important Notes
+## Important Notes
 
 1. **Large Files**: Models and results are excluded from git (see `.gitignore`)
 2. **Docker Protection**: Always backup images before system maintenance
@@ -187,9 +187,7 @@ GPU monitoring utilities in `shared/monitoring/`:
 4. **Model Downloads**: Use Hugging Face CLI for quantized model downloads
 5. **Recovery**: Keep `quick_rebuild.sh` and Dockerfiles updated
 
-## 📋 Troubleshooting
-
-### NVIDIA Runtime Issues
+### NVIDIA Runtime Issues with 5090 cluster
 ```bash
 # Check NVIDIA runtime
 docker info | grep nvidia
@@ -198,35 +196,4 @@ docker info | grep nvidia
 sudo docker run --rm --gpus all nvidia/cuda:11.8-base-ubuntu20.04 nvidia-smi
 ```
 
-### Missing Images
-```bash
-# List available images
-sudo docker images
 
-# Rebuild from existing working image
-./docker/quick_rebuild.sh
-```
-
-### Model Download Issues
-```bash
-# Login to Hugging Face
-huggingface-cli login
-
-# Check available models
-huggingface-cli list city96/FLUX.1-dev-gguf
-```
-
-## 🤝 Contributing
-
-1. Always test Docker builds before committing
-2. Update documentation for new benchmark configurations
-3. Use protection scripts before major changes
-4. Keep Dockerfiles and build scripts updated
-
-## 📄 License
-
-[Add your license information here]
-
----
-
-**⚠️ Critical Infrastructure**: This repository contains critical benchmarking infrastructure. Always use protection scripts before system maintenance operations.
