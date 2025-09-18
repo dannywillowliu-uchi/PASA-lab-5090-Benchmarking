@@ -13,36 +13,34 @@ Comprehensive performance benchmarking of WAN2.2 14B model across different step
 
 | Configuration | Generation Time | Model Loading | Total Time | Peak Memory (GPU) | GPU Scaling Efficiency |
 |---------------|----------------|---------------|------------|-------------------|----------------------|
-| **10 steps, 1 GPU** | 9.57s* | 54.0s | 63.57s | 32.1GB (98.4%) | Baseline |
-| **20 steps, 1 GPU** | 134.0s | 54.0s | 205.13s | 32.6GB (100%) | - |
-| **10 steps, 8 GPUs** | 25.0s | 69.0s | 111.21s | 4.0GB per GPU | **2.61x speedup** |
-| **20 steps, 8 GPUs** | 41.0s | 71.0s | 132.20s | 4.2GB per GPU | **3.27x speedup** |
-
-*Note: 10 steps/1 GPU generation time appears anomalous in logs - investigating*
+| **10 steps, 1 GPU** | 81.0s | 56.0s | 151.63s | 30.9GB (95.0%) | Baseline |
+| **20 steps, 1 GPU** | 134.0s | 55.0s | 207.42s | 31.2GB (95.7%) | - |
+| **10 steps, 8 GPUs** | 25.0s | 70.0s | 120.24s | ~4.0GB per GPU | **3.24x speedup** |
+| **20 steps, 8 GPUs** | 42.0s | 74.0s | 134.19s | ~4.2GB per GPU | **3.19x speedup** |
 
 ## Detailed Performance Analysis
 
 ### 1. GPU Scaling Performance
 
-**Outstanding distributed training results:**
+**Exceptional distributed training results:**
 
-- **10 steps**: 8 GPUs achieved **2.61x speedup** over single GPU
-- **20 steps**: 8 GPUs achieved **3.27x speedup** over single GPU
-- **Memory efficiency**: 87% reduction in per-GPU memory usage (32GB → 4GB)
+- **10 steps**: 8 GPUs achieved **3.24x speedup** over single GPU (81s → 25s)
+- **20 steps**: 8 GPUs achieved **3.19x speedup** over single GPU (134s → 42s)
+- **Memory efficiency**: 87% reduction in per-GPU memory usage (31GB → 4GB per GPU)
 
 ### 2. Step Count Impact
 
 **Generation time scaling:**
-- **Single GPU**: 20 steps takes **14x longer** than 10 steps (134s vs 9.57s*)
-- **8 GPUs**: 20 steps takes **1.64x longer** than 10 steps (41s vs 25s)
-- **Multi-GPU shows better step scaling efficiency**
+- **Single GPU**: 20 steps takes **1.65x longer** than 10 steps (134s vs 81s)
+- **8 GPUs**: 20 steps takes **1.68x longer** than 10 steps (42s vs 25s)
+- **Excellent step scaling efficiency** across all GPU configurations
 
 ### 3. Memory Utilization
 
 #### Single GPU Configuration
-- **Peak Usage**: 32.1GB (98.4% of 32.6GB available)
-- **Average Usage**: 21.6GB (66.3% utilization)
-- **Memory Efficiency**: Near maximum VRAM utilization
+- **Peak Usage**: ~31GB (95% of 32.6GB available)
+- **Average Usage**: ~15GB (47% utilization during generation)
+- **Memory Efficiency**: Optimal VRAM utilization with headroom for stability
 
 #### 8 GPU Distributed Configuration  
 - **Per-GPU Peak**: ~4.0-4.2GB (12.3-12.9% utilization per GPU)
@@ -52,8 +50,8 @@ Comprehensive performance benchmarking of WAN2.2 14B model across different step
 ### 4. Model Loading Performance
 
 **Loading times show expected overhead for distributed setup:**
-- **Single GPU**: 54.0s (consistent across step counts)
-- **8 GPUs**: 69.0-71.0s (+26-31% overhead for distributed initialization)
+- **Single GPU**: 55-56s (consistent across step counts)
+- **8 GPUs**: 70-74s (+27-32% overhead for distributed initialization and NCCL setup)
 
 ## Technical Configuration
 
